@@ -20,7 +20,33 @@ Route::middleware('auth')->group(function () {
 Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
 Route::get('/reports/form', [ReportController::class, 'showReportFoundForm']);
 
+// komentar dulu ya
+// Route::get('/', function () {
+//     return view('reports');
+// });
 
+// ini yang aku buat kakkk
 Route::get('/', function () {
-    return view('reports');
-});
+    return view('user.login');
+})->name('login');
+
+Route::get('/daftar', function () {
+    return view('user.signup');
+})->name('daftar');
+
+Route::get('/beranda', function () {
+    return view('user.home');
+})->name('beranda');
+
+Route::get('/lapor', function () {
+    return view('user.forms');
+})->name('lapor');
+
+Route::get('/riwayat', function () {
+    return view('user.history');
+})->name('riwayat');
+
+// Route::get('/barang/{id}', [BarangController::class, 'show'])->name('produk.show');
+Route::get('/barang/BRG-001', function () {
+    return view('user.details');
+})->name('barang');
