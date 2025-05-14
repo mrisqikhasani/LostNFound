@@ -1,4 +1,4 @@
-<p align="center"><a href="" target="_blank"><img src="{{ asset('storage/logo-lostnfound.svg') }}" width="400" alt="LostNFound Logo"/></a></p>
+<p align="center"><a href="" target="_blank"><img src="https://raw.githubusercontent.com/mrisqikhasani/LostNFound/f75c26318b5126665d7bb346719d9ec385f19d6e/storage/app/public/logo-lostnfound.svg" width="300" alt="LostNFound Logo"/></a></p>
 
 # 🔍 LostNFound
 
