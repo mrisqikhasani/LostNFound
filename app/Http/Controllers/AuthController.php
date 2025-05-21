@@ -11,12 +11,12 @@ class AuthController extends Controller
 {
     public function showLoginForm()
     {
-        return view('auth.login');
+        return view('user.login');
     }
 
     public function showRegisterForm()
     {
-        return view('auth.register');
+        return view('user.signup');
     }
 
     public function login(Request $request)
@@ -30,7 +30,7 @@ class AuthController extends Controller
                 return redirect()->intended('/admin');
             }
 
-            return redirect()->intended('/dashboard');
+            return redirect()->intended('/');
         }
 
         return back()->withErrors([
@@ -43,7 +43,7 @@ class AuthController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/login');
+        return redirect('/');
     }
 
     public function register(Request $request)
@@ -63,6 +63,6 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        return redirect('/dashboard');
+        return redirect('/');
     }
 }

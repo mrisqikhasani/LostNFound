@@ -1,30 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <title>{{ config('app.name') }}</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <!-- 'id' => 'BRG-' . str_pad($report->id, 3, '0', STR_PAD_LEFT), -->
+    <title>Beranda - LostNFound</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="{{ asset('storage/favicon.ico') }}">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        poppins: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#773b97',
+                        secondary: '#a868cb',
+                        hitam: '1b1b1b',
+                        oren: '#f05a26',
+                        kuning: '#fbbc2a',
+                    },
+                }
+            }
+        }
+    </script>
+    @yield('header')
 </head>
-<body class="bg-gray-100 text-gray-800">
-    <nav class="bg-white shadow p-4 flex justify-between">
-        <a href="/" class="font-bold">{{ config('app.name') }}</a>
-        @auth
-            <form method="POST" action="{{ route('logout') }}">
-                <span>{{ Auth::user()->name }}</span>
-                <button href="{{ route('logout') }}" class="ml-4 text-red-500">Logout</button>
-            </form>
-        @endauth
-    </nav>
 
-    <main class="p-6">
-        @yield('content')
-    </main>
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<body class="font-poppins scroll-smooth">
+    {{-- Navbar --}}
+    <div class="absolute top-0 left-0 z-40 w-full bg-transparent">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between py-4">
+                <!-- Logo -->
+                <a href="/" class="w-48">
+                    <img src="{{ asset('storage/logo-lostnfound.svg') }}" alt="logo" class="w-full" />
+                </a>
+                @if (auth()->check())
+                    <!-- User Icon -->
+                    <div class="group relative flex items-center">
+                        <img src="{{ asset('storage/logo-user.svg') }}" class="w-12 cursor-pointer" />
 
-    <!-- DataTables JS -->
-    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-
+                        <div
+                            class="absolute top-full right-0 mt-2 w-40 bg-white rounded-lg shadow-2xl origin-top scale-y-0 group-hover:scale-y-100 transition-transform duration-200">
+                        <a href="{{ route('history') }}"
+                                class="block px-4 py-2 text-hitam hover:bg-gray-100 font-medium">Riwayat Klaim</a>
+                            <form action="{{ route('auth.logout') }}" method="post"
+                                class="block px-4 py-2 text-hitam hover:bg-gray-100 font-medium">
+                                @csrf
+                                <button type="submit"
+                                    class="block px-4 py-2 text-hitam hover:bg-gray-100 font-medium">Keluar</button>
+                            </form>
+                        </div>
+                    </div>
+                @else
+                    <a href="/login"
+                        class="bg-primary text-white px-6 py-2 rounded-lg font-semibold hover:bg-secondary transition">Login</a>
+                @endif
+            </div>
+        </div>
+    </div>
+    @yield('content')
     @yield('scripts')
+
 </body>
+
 </html>

@@ -12,6 +12,7 @@ class Claim extends Model
         'user_id',
         'report_id',
         'deskripsi_verifikasi',
+        'foto_verifikasi',
         'status_klaim',
         'tanggal_klaim',
     ];

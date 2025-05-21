@@ -28,8 +28,12 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->login()
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => '#773b97',
             ])
+            ->brandLogo(asset('storage/logo-lostnfound-light.svg'))
+            ->brandLogoHeight('3rem')
+            ->favicon(asset('storage/favicon.ico'))
+            ->font('Poppins')
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([

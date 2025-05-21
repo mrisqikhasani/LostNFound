@@ -11,6 +11,7 @@ class Report extends Model
     protected $fillable=[
         'user_id',
         'nama_barang_temuan',
+        'kategori',
         'waktu_temuan',
         'lokasi_temuan',
         'region_kampus',
@@ -18,6 +19,10 @@ class Report extends Model
         'deskripsi_khusus',
         'status',
         'foto_url',
+    ];
+
+    protected $casts = [
+        'foto_url' => 'array',
     ];
 
     public function user(): BelongsTo

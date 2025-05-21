@@ -10,11 +10,13 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Filament\Tables\Columns\{TextColumn, BadgeColumn};
+use Filament\Tables\Columns\{TextColumn, BadgeColumn, ImageColumn};
 use Filament\Forms\Components\{TextInput, Select, DateTimePicker, Textarea, FileUpload};
 use Filament\Forms\Actions\{EditAction, DeleteAction};
+use Filament\Tables\Filters\TabsFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Infolists\Components\Tabs;
 
 class ReportResource extends Resource
 {
@@ -23,7 +25,6 @@ class ReportResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     protected static ?string $navigationLabel = 'Laporan Barang';
     // protected static ?string $navigationGroup = 'Manajemen Lost And Found';
-
     public static function form(Form $form): Form
     {
         return $form->schema([
@@ -43,15 +44,15 @@ class ReportResource extends Resource
                     'Salemba' => 'Salemba',
                 ])
                 ->required(),
-            
-            TextInput::make('nama_barang_temuan')->label('Nama Barang')->required(),    
-            
+
+            TextInput::make('nama_barang_temuan')->label('Nama Barang')->required(),
+
             TextInput::make('lokasi_temuan')->label('Lokasi Temuan')->required(),
-            
+
             Textarea::make('deskripsi_umum')->label('Deskripsi Umum')->required(),
-                
-            Textarea::make('deskripsi_khusus') ->label('Deskripsi Rahasia')->required(),
-            
+
+            Textarea::make('deskripsi_khusus')->label('Deskripsi Rahasia')->required(),
+
             DateTimePicker::make('waktu_temuan')->label('Waktu Temuan Barang')->required(),
 
             Select::make('status')
@@ -65,13 +66,13 @@ class ReportResource extends Resource
                 ->label('Status')
                 ->required(),
 
-                FileUpload::make('foto_url')
-                    ->label('Foto Barang')
-                    ->directory('reports')
-                    ->image()
-                    ->imageEditor() // Opsional: untuk crop dll
+            FileUpload::make('foto_url')
+                ->label('Foto Barang')
+                ->directory('reports')
+                ->image()
+                ->imageEditor() // Opsional: untuk crop dll
                 ->required()
-            ]);
+        ]);
     }
 
     public static function table(Table $table): Table
@@ -82,6 +83,11 @@ class ReportResource extends Resource
                 TextColumn::make('id')->sortable(),
                 TextColumn::make('user.name')->label('Pelapor')->searchable(),
                 TextColumn::make('nama_barang_temuan')->label('Nama Barang')->searchable(),
+                ImageColumn::make('foto_url')
+                    ->label('Foto')
+                    ->getStateUsing(function ($record) {
+                        return isset($record->foto_url[0]) ? asset('storage/' . $record->foto_url[0]) : null;
+                    }),
                 TextColumn::make('waktu_temuan')->label('Waktu Temuan')->sortable(),
                 TextColumn::make('region_kampus')->label('Region Kampus')->searchable(),
                 TextColumn::make('lokasi_temuan')->label('Lokasi temuan'),
@@ -95,21 +101,29 @@ class ReportResource extends Resource
 
             ])
             ->filters([
-            Tables\Filters\SelectFilter::make('status')
+                Tables\Filters\SelectFilter::make('status')
                     ->options([
                         'menunggu' => 'Menunggu',
                         'disetujui' => 'Disetujui',
                         'ditolak' => 'Ditolak',
                         'diklaim' => 'Diklaim',
                     ]),
-            Tables\Filters\SelectFilter::make('region_kampus')
+                Tables\Filters\SelectFilter::make('region_kampus')
                     ->options([
-                    'Depok' => 'Depok',
-                    'Kalimalang' => 'Kalimalang',
-                    'Karawaci' => 'Karawaci',
-                    'Cengkareng' => 'Cengkareng',
-                    'Salemba' => 'Salemba',
-                    ])
+                        'Depok' => 'Depok',
+                        'Kalimalang' => 'Kalimalang',
+                        'Karawaci' => 'Karawaci',
+                        'Cengkareng' => 'Cengkareng',
+                        'Salemba' => 'Salemba',
+                    ]),
+                //  TabsFilter::make()
+                //     ->tabs([
+                //         'Semua' => Tables\Filters\QueryFilter::make(),
+                //         'Disetujui' => Tables\Filters\QueryFilter::make()->query(fn ($query) => $query->where('status', 'disetujui')),
+                //         'Pending' => Tables\Filters\QueryFilter::make()->query(fn ($query) => $query->where('status', 'pending')),
+                //         'Ditolak' => Tables\Filters\QueryFilter::make()->query(fn ($query) => $query->where('status', 'ditolak')),
+                //     ]),
+
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

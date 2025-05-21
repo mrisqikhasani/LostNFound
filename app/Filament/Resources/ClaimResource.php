@@ -13,7 +13,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\{Select, Textarea, DatePicker};
-use Filament\Tables\Columns\{TextColumn, BadgeColumn};
+use Filament\Tables\Columns\{TextColumn, BadgeColumn, Image};
 use Filament\Tables\Actions\{EditAction, DeleteAction};
 
 class ClaimResource extends Resource
@@ -64,7 +64,7 @@ class ClaimResource extends Resource
             ->columns([
                 //
                 TextColumn::make('id')->sortable(),
-                TextColumn::make('user.name')->label('Pemilik')->searchable(),
+                TextColumn::make('user.name')->label('Pengklaim')->searchable(),
                 TextColumn::make('report.nama_barang_temuan')->label('Barang')->searchable(),
                 TextColumn::make('deskripsi_verifikasi')->label('Verifikasi')->limit(30),
                 BadgeColumn::make('status_klaim')

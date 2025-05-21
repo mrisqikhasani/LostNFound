@@ -15,13 +15,14 @@ return new class extends Migration
             $table->id();
             $table->foreignId("user_id")->constrained()->onDelete('cascade');
             $table->string("nama_barang_temuan");
+            $table->enum("kategori", ['Alat Tulis','Elektronik', 'Alat Makan & Minum', 'Aksesoris', 'Lainnya'])-> default('Lainnya');
             $table->dateTime("waktu_temuan");
             $table->string("lokasi_temuan");
             $table->enum('region_kampus', ['Depok', 'Kalimalang', 'Karawaci', 'Cengkareng', 'Salemba'])->default('Depok');
             $table->text("deskripsi_umum");
             $table->text("deskripsi_khusus");
             $table->enum('status',['menunggu', 'disetujui', 'ditolak', 'diklaim'])->default('menunggu');
-            $table->string('foto_url')->nullable();
+            $table->json('foto_url')->nullable();
             $table->timestamps();
         });
     }

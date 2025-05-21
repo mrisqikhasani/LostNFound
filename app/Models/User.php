@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\hasMany;
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
+
 
 class User extends Authenticatable
 {
@@ -21,6 +24,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'phone_number',        
         'role',
     ];
 
@@ -50,4 +54,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Report::class);
     }
+
+    // public function canAccessPanel(Panel $panel): bool
+    // {
+    //     // return $this->role === 'admin';
+    // }
 }
