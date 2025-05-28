@@ -57,14 +57,17 @@ class ReportController extends Controller
         // $reports = Report::where('status', 'disetujui')->get();
         // $reports = Report::get();
 
-        return view('user.home', compact('reports', 'regions', 'categories'));
+        $title = 'Beranda';
+
+        return view('user.home', compact('reports', 'regions', 'categories', 'title'));
     }
 
     public function showPageId($id)
     {
         $reportById = Report::findOrFail($id);
+        $title = 'Detail Barang';
 
-        return view('user.details', compact('reportById'));
+        return view('user.details', compact('reportById', 'title'));
     }
 
     public function showReportFoundForm()
@@ -87,8 +90,8 @@ class ReportController extends Controller
             }, explode(',', $categoryMatches[1]));
         }
 
-
-        return view('user.forms', compact('regions', 'categories'));
+        $title = 'Lapor';
+        return view('user.forms', compact('regions', 'categories', 'title'));
     }
 
     public function submitReport(Request $request)
@@ -121,6 +124,7 @@ class ReportController extends Controller
             Report::create([
                 'user_id' => auth()->id(),
                 'nama_barang_temuan' => $request->nama_barang_temuan,
+                'kategori' => $request->kategori,
                 'waktu_temuan' => $request->waktu_temuan,
                 'lokasi_temuan' => $request->lokasi_temuan,
                 'region_kampus' => $request->region_kampus,
@@ -133,53 +137,6 @@ class ReportController extends Controller
             return redirect('/')->with('success', 'Report berhasil dibuat.');
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', 'Terjadi kesalahan saat membuat report: ' . $th->getMessage())->withInput();
-        }
-    }
-
-    public function showHistoryReport(Request $request)
-    {
-        try {
-            $userId = auth()->id();
-            $query = Report::where('user_id', $userId);
-
-            if ($request->filled('status')) {
-                $query->where('status_klaim');
-            }
-
-            if ($request->filled('duration')) {
-                switch ($request->duration) {
-                    case 'this_week':
-                        $query->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()]);
-                        break;
-                    case 'this_month':
-                        $query->whereMonth('created_at', Carbon::now()->month);
-                        break;
-                    case 'last_3_months':
-                        $query->where('created_at', '>=', Carbon::now()->subMonths(3));
-                        break;
-                    case 'last_6_months':
-                        $query->where('created_at', '>=', Carbon::now()->subMonths(6));
-                        break;
-                    case 'this_year':
-                        $query->whereYear('created_at', Carbon::now()->year);
-                        break;
-                }
-            }
-
-            $reportsUser = $query->latest()->paginate();
-
-            if($reportsUser->isEmpty()){
-                $error = 'Not data report found';
-                $success = null;
-            } else {
-                $error = session('error');
-                $success = session('success');
-            }
-
-            return view('user.history', compact('reportsUser', 'success', 'error'));
-        } catch (\Throwable $th) {
-            //throw $th;
-            return redirect()->back()->with('error', 'Terjadi kesalahan :' . $th->getMessage());
         }
     }
 }

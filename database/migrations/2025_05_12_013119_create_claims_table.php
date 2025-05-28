@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('report_id')->constrained('reports')->onDelete('cascade');
             $table->text('deskripsi_verifikasi');
-            $table->enum('status_klaim', ['diproses', 'disetujui', 'ditolak'])->default('diproses');
+            $table->enum('status_klaim', ['Diproses', 'Disetujui', 'Ditolak'])->default('Diproses');
             $table->date('tanggal_klaim');
             $table->timestamps();
         });

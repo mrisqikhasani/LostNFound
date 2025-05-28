@@ -28,7 +28,7 @@ class DummyReportsSeeder extends Seeder
                 'deskripsi_umum' => 'Tas warna hitam ditemukan di sekitar tangga.',
                 'deskripsi_khusus' => 'Ada gantungan kunci boneka kecil.',
                 'status' => 'menunggu',
-                'foto_url' => json_encode(['botol-minum-1.jpeg', 'botol-minum-2.jpeg']), // multiple images as JSON
+                'foto_url' => ['botol-minum-1.jpeg', 'botol-minum-2.jpeg'], // multiple images as JSON
             ]);
         }
     }

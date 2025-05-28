@@ -30,7 +30,7 @@ class AdminPanelProvider extends PanelProvider
             ->colors([
                 'primary' => '#773b97',
             ])
-            ->brandLogo(asset('storage/logo-lostnfound-light.svg'))
+            ->brandLogo(asset('storage/logo-lostnfound.svg'))
             ->brandLogoHeight('3rem')
             ->favicon(asset('storage/favicon.ico'))
             ->font('Poppins')

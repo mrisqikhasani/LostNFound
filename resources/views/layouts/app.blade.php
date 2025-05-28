@@ -3,7 +3,7 @@
 
 <head>
     <!-- 'id' => 'BRG-' . str_pad($report->id, 3, '0', STR_PAD_LEFT), -->
-    <title>Beranda - LostNFound</title>
+    <title>{{$title}} - LostNFound</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="{{ asset('storage/favicon.ico') }}">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -49,8 +49,7 @@
                             <form action="{{ route('auth.logout') }}" method="post"
                                 class="block px-4 py-2 text-hitam hover:bg-gray-100 font-medium">
                                 @csrf
-                                <button type="submit"
-                                    class="block px-4 py-2 text-hitam hover:bg-gray-100 font-medium">Keluar</button>
+                                <button type="submit">Keluar</button>
                             </form>
                         </div>
                     </div>

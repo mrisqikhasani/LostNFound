@@ -44,7 +44,7 @@
                     @endif
                     <input type="text"
                         class="w-full h-12 text-gray-900 placeholder:text-gray-400 text-lg font-normal leading-7 rounded-lg border-gray-300 border shadow-sm px-4 mb-6 focus:outline-primary"
-                        placeholder="Username" name="email">
+                        placeholder="Email" name="email">
                     <input type="password"
                         class="w-full h-12 text-gray-900 placeholder:text-gray-400 text-lg font-normal leading-7 rounded-lg border-gray-300 border shadow-sm focus:outline-primary px-4 mb-1"
                         placeholder="Password" name="password">

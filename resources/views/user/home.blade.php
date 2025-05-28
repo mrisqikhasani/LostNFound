@@ -208,46 +208,6 @@
             });
         });
 
-        // Catalog
-        // const products = [
-        //   {
-        //     id: 'BRG-001',
-        //     name: 'Botol Minum Putih',
-        //     url: 'https://i.pinimg.com/736x/64/d3/96/64d396411282134718793e59dd43efba.jpg',
-        //     category: 'tableware',
-        //     description: 'Ditemukan di wastafel kamar mandi lantai 2 kampus F4',
-        //     date: '2025-05-13',
-        //     region: 'Depok',
-        //   },
-        //   {
-        //     id: 'BRG-002',
-        //     name: 'iPhone 13 Putih',
-        //     url: 'https://i.pinimg.com/736x/19/be/bd/19bebd23f59a1fad43984bba0156cb69.jpg',
-        //     category: 'elektronik',
-        //     description: 'Ditemukan di meja baris kedua F491',
-        //     date:'2025-05-11',
-        //     region: 'Depok',
-        //   },
-        //   {
-        //     id: 'BRG-003',
-        //     name: 'Buku Tulis Pink',
-        //     url: 'https://i.pinimg.com/736x/c8/d2/2c/c8d22ca3aa9a139c341fd9696afee2a6.jpg',
-        //     category: 'stationery',
-        //     description: 'Ditemukan di meja kelas J5',
-        //     date: '2025-05-08',
-        //     region: 'Kalimalang',
-        //   },
-        //   {
-        //     id: 'BRG-004',
-        //     name: 'Kalung Emas',
-        //     url: 'https://i.pinimg.com/736x/08/60/54/0860546b69fe4ea68d3466c4fe88a1d4.jpg',
-        //     category: 'aksesoris',
-        //     description: 'Ditemukan di meja lab K132',
-        //     date: '2025-04-10',
-        //     region: 'Karawaci',
-        //   },
-        // ];
-
         // Get DOM elements
         const productsWrapper = document.getElementById('products-wrapper');
         const checkboxes = document.querySelectorAll('.check');
@@ -307,8 +267,10 @@
 
 
             productElement.innerHTML =
-                `<div class="bg-gray-100 flex justify-center relative overflow-hidden group cursor-pointer border rounded-xl">
-      <img src="${product.url}" alt="${product.name}" class="w-full h-full object-cover"/>
+                `<div class="bg-gray-100 flex justify-center relative overflow-hidden group cursor-pointer border rounded-xl overflow-hidden">
+      <div class="w-full aspect-[1/1]">
+      <img src="${product.url}" alt="${product.name}" class="w-full h-full object-cover object-center"/>
+      </div>
       <div class="absolute z-10 bottom-3 left-0 mx-3 p-2 bg-white w-[calc(100%-24px)] rounded-xl shadow-md opacity-0 translate-y-2 scale-95 transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:translate-y-0 group-hover:scale-100 cursor-pointer">
       ${claimButton}
       </div>

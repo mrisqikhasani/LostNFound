@@ -11,12 +11,14 @@ class AuthController extends Controller
 {
     public function showLoginForm()
     {
-        return view('user.login');
+        $title = 'Masuk';
+        return view('user.login', compact('title'));
     }
 
     public function showRegisterForm()
     {
-        return view('user.signup');
+        $title = 'Daftar';
+        return view('user.signup', compact('title'));
     }
 
     public function login(Request $request)
@@ -57,6 +59,7 @@ class AuthController extends Controller
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
+            'phone_number' => $request->phone_number,
             'password' => Hash::make($request->password),
             'role'=>'user',
         ]);

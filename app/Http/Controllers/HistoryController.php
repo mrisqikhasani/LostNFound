@@ -67,7 +67,8 @@ class HistoryController extends Controller
             }
 
             $tab = 'report';
-            return view('user.history', compact('reportsUser', 'success', 'error', 'tab'));
+            $title = 'Riwayat';
+            return view('user.history', compact('reportsUser', 'success', 'error', 'tab', 'title'));
         } catch (\Throwable $th) {
             //throw $th;
             return redirect()->back()->with('error', 'Terjadi kesalahan :' . $th->getMessage());
@@ -121,7 +122,9 @@ class HistoryController extends Controller
                 $success = session('success');
             }
 
-            return view('user.history', compact('claimsUser', 'error', 'success'));
+            $title = 'Riwayat';
+
+            return view('user.history', compact('claimsUser', 'error', 'success', 'title'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }

@@ -95,24 +95,21 @@
                 <label class="block mt-10 text-lg font-medium text-left" for="lokasi_temuan">Dimana Anda Temukan?</label>
                 <input type="text" id="lokasi_temuan" name="lokasi_temuan"
                     class="mt-1 px-3 py-2 border rounded-lg w-96 outline-none focus:ring-2 focus:ring-primary"
-                    placeholder="Di Ruangan f8425" required />
+                    placeholder="Di Ruangan F8425" required />
 
                 <label class="block mt-10 text-lg font-medium text-left" for="deskripsi_umum">Deskripsi umum</label>
                 <textarea id="deskripsi_umum" name="deskripsi_umum"
                     class="mt-1 px-3 py-2 border rounded-lg w-full outline-none focus:ring-2 focus:ring-primary"
-                    placeholder="Di temukan barang handphone di kampus F8425, dengan ciri-ciri samsung s40 warna black" rows="4"
+                    placeholder="Ditemukan kaos dengan ciri-ciri berwarna putih" rows="4"
                     required></textarea>
                 <!-- khusus -->
                 <label class="block mt-10 text-lg font-medium text-left" for="deskripsi_khusus">Deskripsi Khusus</label>
-                <label for="" class="text-xs text-slate-400 py-5">Deskripsi Khusus digunakan untuk verifikasi
-                    kepemilikan barang. Isikan ciri-ciri spesifik yang hanya diketahui pemilik, seperti tanda unik atau
-                    kondisi khusus. Deskripsi ini hanya akan ditampilkan kepada Admin dan Penemu sebagai bahan validasi
-                    klaim.</label>
+                <label for="" class="text-xs text-slate-400 py-5">Deskripsi khusus digunakan untuk verifikasi
+                    kepemilikan barang. Silakan isi dengan ciri-ciri spesifik dari barang tersebut.</label>
                 <textarea id="deskripsi_khusus" name="deskripsi_khusus"
                     class="mt-1 px-3 py-2 border rounded-lg w-full outline-none focus:ring-2 focus:ring-primary"
-                    placeholder="Deskripsi Khusus terdapat walpaper foto keluarga pemilik yang terdiri dari 5 orang Keluarga dengan warna sedana yaitu merah" rows="4"
+                    placeholder="Terdapat noda kuning pada kaos berwarna putih ini" rows="4"
                     required></textarea>
-
 
                 <!-- Button Actions -->
                 <div class="mt-10 flex justify-end">

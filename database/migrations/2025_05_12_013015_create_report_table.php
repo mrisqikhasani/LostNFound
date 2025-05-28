@@ -21,7 +21,7 @@ return new class extends Migration
             $table->enum('region_kampus', ['Depok', 'Kalimalang', 'Karawaci', 'Cengkareng', 'Salemba'])->default('Depok');
             $table->text("deskripsi_umum");
             $table->text("deskripsi_khusus");
-            $table->enum('status',['menunggu', 'disetujui', 'ditolak', 'diklaim'])->default('menunggu');
+            $table->enum('status',['Menunggu', 'Disetujui', 'Ditolak', 'Diklaim'])->default('Menunggu');
             $table->json('foto_url')->nullable();
             $table->timestamps();
         });
