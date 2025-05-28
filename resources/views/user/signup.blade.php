@@ -38,6 +38,11 @@
                         <p class="font-poppins leading-10 text-center text-3xl font-bold tracking-tight text-gray-900">
                             Daftar</p>
                     </div>
+                     @if ($errors->any())
+                        <div class="bg-red-100 text-red-700 p-3 rounded mb-4">
+                            Error: {{ $errors->first() }}
+                        </div>
+                    @endif
                     <input type="text"
                         class="w-full h-12 text-gray-900 placeholder:text-gray-400 text-lg font-normal leading-7 rounded-lg border-gray-300 border shadow-sm px-4 mb-6 focus:outline-primary"
                         placeholder="Nama" name='name'>

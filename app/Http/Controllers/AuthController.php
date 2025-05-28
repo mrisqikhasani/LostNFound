@@ -50,22 +50,30 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            // 'password' => 'required|string|min:8|confirmed',
+            'email' => 'required|string|email|max:255|unique:users,email',
+            'phone_number' => 'nullable|string|max:20',
+            'password' => 'required|string|min:8',
         ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'phone_number' => $request->phone_number,
-            'password' => Hash::make($request->password),
-            'role'=>'user',
-        ]);
+        try {
+            $user = User::create([
+                'name' => $validated['name'],
+                'email' => $validated['email'],
+                'phone_number' => $validated['phone_number'] ?? null,
+                'password' => Hash::make($validated['password']),
+                'role' => 'user',
+            ]);
 
-        Auth::login($user);
+            Auth::login($user);
 
-        return redirect('/');
+            return redirect('/');
+        } catch (\Exception $e) {
+            return back()
+                ->withErrors(['register' => 'Terjadi kesalahan saat mendaftar. Silakan coba lagi.'])
+                ->withInput()
+                ->with('blde', value: $e->getMessage());
+        }
     }
 }

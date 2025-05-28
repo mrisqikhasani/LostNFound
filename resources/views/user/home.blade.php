@@ -276,10 +276,9 @@
       </div>
       </div>
       <p class="text-lg  font-semibold">${product.name}</p>
-      <p class="text-sm  font-regular">${product.description}</p>
-      <p class="text-sm  font-regular">${product.lokasi_temuan}</p>
-      <p class="text-sm  font-regular">${product.region}</p>
-      <p class="text-sm text-gray-700 ">${timeAgo(product.date)}</p>`;
+      <p class="text-sm  font-regular text-gray-800">${product.lokasi_temuan}</p>
+      <p class="text-sm  font-regular text-gray-600">${product.region}</p>
+      <p class="text-sm text-gray-400 ">${timeAgo(product.date)}</p>`;
 
             productElement
                 .querySelector('.status')

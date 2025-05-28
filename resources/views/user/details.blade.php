@@ -26,14 +26,14 @@
       <span class="text-gray-400 text-sm">Tidak ada foto tambahan</span>
       @endif
         <!-- <img src="{{ asset('storage/botol-minum-2.jpg') }}" alt="Thumbnail 2"
-                    class="size-16 sm:size-20 object-cover rounded-md cursor-pointer opacity-60 hover:opacity-100 transition duration-300"
-                    onclick="changeImage(this.src)">
-              <img src="{{ asset('storage/botol-minum-1.jpeg') }}" alt="Thumbnail 3"
-                    class="size-16 sm:size-20 object-cover rounded-md cursor-pointer opacity-60 hover:opacity-100 transition duration-300"
-                    onclick="changeImage(this.src)">
-              <img src="{{ asset('storage/botol-minum-2.jpg') }}" alt="Thumbnail 4"
-                    class="size-16 sm:size-20 object-cover rounded-md cursor-pointer opacity-60 hover:opacity-100 transition duration-300"
-                    onclick="changeImage(this.src)"> -->
+      class="size-16 sm:size-20 object-cover rounded-md cursor-pointer opacity-60 hover:opacity-100 transition duration-300"
+      onclick="changeImage(this.src)">
+      <img src="{{ asset('storage/botol-minum-1.jpeg') }}" alt="Thumbnail 3"
+      class="size-16 sm:size-20 object-cover rounded-md cursor-pointer opacity-60 hover:opacity-100 transition duration-300"
+      onclick="changeImage(this.src)">
+      <img src="{{ asset('storage/botol-minum-2.jpg') }}" alt="Thumbnail 4"
+      class="size-16 sm:size-20 object-cover rounded-md cursor-pointer opacity-60 hover:opacity-100 transition duration-300"
+      onclick="changeImage(this.src)"> -->
       </div>
       </div>
 
@@ -50,31 +50,38 @@
         stroke="currentColor" class="w-6 text-hitam mr-2">
         <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
         </svg>
-        <span class="text-slate-400 text-sm font-medium">{{ $reportById->waktu_temuan }}</span>
+        <span class="text-slate-400 text-sm font-medium">
+        {{ \Carbon\Carbon::parse($reportById->waktu_temuan)->format('d M Y H:i') }}
+        </span>
       </div>
-      <div class="mb-4 flex items-center">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-        stroke="currentColor" class="w-6 text-hitam mr-2">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-        <path stroke-linecap="round" stroke-linejoin="round"
+
+
+      <div class="mb-4 flex items-center text-sm text-gray-600">
+        <svg class="w-5 h-5 mr-2 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+          d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
           d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
         </svg>
-        <span class="text-hitam text-lg font-medium">{{ $reportById->lokasi_temuan }}</span>
+        {{ $reportById->lokasi_temuan }}
       </div>
-      <div class="mb-4 flex items-center">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-        stroke="currentColor" class="w-6 text-hitam mr-2">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-        <path stroke-linecap="round" stroke-linejoin="round"
-          d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+
+      <div class="mb-10 flex items-center text-sm text-gray-600">
+        <svg  class="w-5 h-5 mr-2 text-primary" xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+        <path
+          d="M496 128v16a8 8 0 0 1 -8 8h-24v12c0 6.6-5.4 12-12 12H60c-6.6 0-12-5.4-12-12v-12H24a8 8 0 0 1 -8-8v-16a8 8 0 0 1 4.9-7.4l232-88a8 8 0 0 1 6.1 0l232 88A8 8 0 0 1 496 128zm-24 304H40c-13.3 0-24 10.7-24 24v16a8 8 0 0 0 8 8h464a8 8 0 0 0 8-8v-16c0-13.3-10.7-24-24-24zM96 192v192H60c-6.6 0-12 5.4-12 12v20h416v-20c0-6.6-5.4-12-12-12h-36V192h-64v192h-64V192h-64v192h-64V192H96z" />
         </svg>
-        <span class="text-hitam text-lg font-medium">{{ $reportById->region_kampus }}</span>
+        {{ $reportById->region_kampus }}
       </div>
-      <h3 class="text-2xl font-bold mb-2">Informasi Tambahan</h3>
-      <p class="text-gray-900 mb-2">Botol minum ini ditemukan di wastafel kamar mandi lantai 2 kampus F4,
-        memiliki
-        merk Lock & Lock</p>
-      <p class="text-gray-500 mb-6">Ditemukan oleh {{ $reportById->user->name }}</p>
+
+      <h3 class="text-lg font-semibold text-gray-800 mb-2">Informasi Tambahan</h3>
+      <p class="text-gray-700 mb-4 leading-relaxed">
+        {{ $reportById->deskripsi_umum }}
+      </p>
+      <p class="text-sm text-gray-500 italic mb-6">
+        Ditemukan oleh <strong>{{ $reportById->user->name }}</strong>
+      </p>
       <div class="flex space-x-4 mb-6">
         <button onclick="openModal('modelConfirm')"
         class="bg-primary flex gap-2 items-center border-2 border-primary text-white font-semibold transition-all ease-in duration-300 px-6 py-2 rounded-md hover:bg-primary hover:outline-none hover:border-primary hover:text-primary hover:bg-transparent hover:border-2">
