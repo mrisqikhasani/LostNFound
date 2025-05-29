@@ -26,9 +26,9 @@ class DummyClaimsSeeder extends Seeder
                 Claim::create([
                     'user_id' => $claimer->id,
                     'report_id' => $report->id,
-                    'deskripsi_verifikasi' => 'Ini tas saya, ada dompet warna merah di dalamnya.',
+                    'deskripsi_verifikasi' => 'Ini adalah TWS saya, saya menggunakannya setiap hari dimanapun dan kapanpun',
                     'status_klaim' => 'diproses', // nanti admin ubah ke disetujui/ditolak
-                    'tanggal_klaim' => now()->subDays(rand(0, 5)),
+                    'tanggal_klaim' => now(),
                 ]);
             }
         }

@@ -16,37 +16,9 @@ class DummyUserSeeder extends Seeder
     {
          $users = [
             [
-                'name' => 'Penemu Satu',
-                'email' => 'penemu1@example.com',
-                'password' => Hash::make('password'),
-                'phone_number' => '081234567890',
-                'role' => 'user',
-            ],
-            [
-                'name' => 'Penemu Dua',
-                'email' => 'penemu2@example.com',
-                'password' => Hash::make('password'),
-                'phone_number' => '081234567890',
-                'role' => 'user',
-            ],
-            [
-                'name' => 'Pencari Satu',
-                'email' => 'pencari1@example.com',
-                'password' => Hash::make('password'),
-                'phone_number' => '081234567890',
-                'role' => 'user',
-            ],
-            [
-                'name' => 'Pencari Dua',
-                'email' => 'pencari2@example.com',
-                'password' => Hash::make('password'),
-                'phone_number' => '081234567890',
-                'role' => 'user',
-            ],
-            [
-                'name' => 'Pencari Tiga',
-                'email' => 'pencari3@example.com',
-                'password' => Hash::make('password'),
+                'name' => 'Fakhri',
+                'email' => 'fakhri@gmail.com',
+                'password' => Hash::make('#Fakhri123'),
                 'phone_number' => '081234567890',
                 'role' => 'user',
             ],

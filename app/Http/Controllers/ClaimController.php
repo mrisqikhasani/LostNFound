@@ -85,6 +85,6 @@ class ClaimController extends Controller
             return redirect()->back()->withInput()->with('error', 'Gagal mengirim klaim: ' . $e->getMessage());
         }
 
-    return redirect()->route('claim.getHistoryClaims')->with('success', 'Klaim berhasil dikirim.');
+    return redirect()->route('history', ['tab' => 'claim'])->with('success', 'Klaim berhasil dikirim.');
     }
 }

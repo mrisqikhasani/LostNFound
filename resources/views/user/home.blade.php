@@ -115,6 +115,14 @@
                     class="absolute left-0 top-full mt-3 z-50 hidden w-32 p-3 bg-white rounded-lg shadow-md">
                     <ul class="space-y-2 text-sm" aria-labelledby="dropdownDefault">
                         <li class="flex items-center">
+                            <input type="radio" name="sort" id="sort-none" value="none"
+                                class="w-4 h-4 accent-primary" {{ request('sort') == 'none' ? 'checked' : '' }}>
+                            <label for="sort-none" class="ml-2 font-medium text-hitam text-base">
+                                Semua
+                            </label>
+                        </li>
+
+                        <li class="flex items-center">
                             <input type="radio" name="sort" id="sort-category" value="category"
                                 class="w-4 h-4 accent-primary" {{ request('sort') == 'category' ? 'checked' : '' }}>
                             <label for="sort-category" class="ml-2 font-medium text-hitam text-base">

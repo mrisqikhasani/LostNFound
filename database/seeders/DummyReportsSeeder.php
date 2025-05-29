@@ -11,7 +11,7 @@ use Illuminate\Support\Str;
 class DummyReportsSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Jalankan seed dari database
      */
     public function run(): void
     {
@@ -20,15 +20,15 @@ class DummyReportsSeeder extends Seeder
         foreach ($penemuUsers as $user) {
             Report::create([
                 'user_id' => $user->id,
-                'nama_barang_temuan' => 'Tas Hitam ' . Str::random(5),
-                'kategori' => 'Alat Makan & Minum', 
-                'waktu_temuan' => now()->subDays(rand(1, 10)),
-                'lokasi_temuan' => 'Di temukan di ruangan F842 ' . rand(1, 5),
+                'nama_barang_temuan' => 'TWS ThinkPlus Hitam',
+                'kategori' => 'Aksesoris', 
+                'waktu_temuan' => now(),
+                'lokasi_temuan' => 'Di temukan di ruangan F8425',
                 'region_kampus' => 'Depok',
-                'deskripsi_umum' => 'Tas warna hitam ditemukan di sekitar tangga.',
-                'deskripsi_khusus' => 'Ada gantungan kunci boneka kecil.',
+                'deskripsi_umum' => 'TWS warna hitam yang ditemukan di meja ruangan.',
+                'deskripsi_khusus' => 'Ada titik putih yang menempel di dalam TWS',
                 'status' => 'menunggu',
-                'foto_url' => ['botol-minum-1.jpeg', 'botol-minum-2.jpeg'], // multiple images as JSON
+                'foto_url' => ['tws-1.jpeg', 'tws-2.jpeg', 'tws-3.jpeg'], // beberapa foto diletakka dalam format JSON
             ]);
         }
     }

@@ -44,6 +44,8 @@ class ReportController extends Controller
                 case 'region':
                     $query->orderBy('region_kampus', 'asc');
                     break;
+                case 'none':
+                    break;
                 default:
                     $query->oldest();
             }

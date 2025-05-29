@@ -133,7 +133,7 @@
                                             <dd class="mt-1.5 text-base font-semibold text-gray-900">
                                                 @if ($claimUser->foto_verifikasi)
                                                     <img src="{{ asset('storage/' . $claimUser->foto_verifikasi) }}"
-                                                        class="w-16" />
+                                                        class="w-16 rounded-md" />
                                                 @else
                                                     <img src="{{ asset('storage/botol-minum-1.jpeg') }}" class="w-16"
                                                         alt="No Image" />
@@ -168,7 +168,7 @@
                                             </dd>
                                         </dl>
                                         <dl>
-                                            <button class="open-modal-btn bg-primary text-white px-2 py-1 rounded text-sm"
+                                            <button class="open-modal-btn bg-primary px-4 py-2 rounded-lg bg-primary text-white text-sm font-semibold hover:bg-secondary transition-all duration-300 ease-in"
                                                 data-claimId="{{ $claimUser->id }}"
                                                 data-namabarangtemuan="{{ $claimUser->report->nama_barang_temuan }}"
                                                 data-deksripsiVerifikasi="{{ $claimUser->deskripsi_verifikasi }}"
@@ -194,11 +194,11 @@
                                 <div class="divide-y divide-gray-200">
                                     <div class="flex flex-wrap items-center gap-y-4 py-6">
                                         <dl class="w-1/2 sm:w-1/4 lg:w-auto lg:flex-1">
-                                            <dt class="text-base font-medium text-gray-500">Bukti Kepemilikan</dt>
+                                            <dt class="text-base font-medium text-gray-500">Bukti Penemuan</dt>
                                             <dd class="mt-1.5 text-base font-semibold text-gray-900">
                                                 @if ($reportUser->foto_url[0])
                                                     <img src="{{ asset('storage/' . $reportUser->foto_url[0]) }}"
-                                                        class="w-16" />
+                                                        class="w-16 rounded-md" />
                                                 @else
                                                     <img src="{{ asset('storage/botol-minum-1.jpeg') }}" class="w-16"
                                                         alt="No Image" />
@@ -247,7 +247,7 @@
                                             </dd>
                                         </dl>
                                         <dl>
-                                            <button class="open-modal-btn bg-primary text-white px-2 py-1 rounded text-sm"
+                                            <button class="open-modal-btn bg-primary px-4 py-2 rounded-lg bg-primary text-white text-sm font-semibold hover:bg-secondary transition-all duration-300 ease-in"
                                                 data-reportId="{{ $reportUser->id }}"
                                                 data-namabarangtemuan="{{ $reportUser->nama_barang_temuan }}"
                                                 data-kategori="{{ $reportUser->kategori }}"

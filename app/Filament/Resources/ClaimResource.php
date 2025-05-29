@@ -20,9 +20,9 @@ class ClaimResource extends Resource
 {
     protected static ?string $model = Claim::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-hand-raised';
     protected static ?string $navigationLabel = 'Klaim Barang';
-    // protected static ?string $navigationGroup = 'Manajemen Lost And Found';
+    protected static ?string $modelLabel = 'Klaim';
 
     public static function form(Form $form): Form
     {

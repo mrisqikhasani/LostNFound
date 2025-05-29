@@ -49,6 +49,14 @@
 
 ---
 
+## 👤 User
+
+- **Admin:** admin@gmail.com @dm1n123
+- **User 1:** fakhri@gmail.com #Fakhri123
+- **User 2:** farhan@gmail.com farhan@123
+
+---
+
 ## 🚀 Getting Started
 
 Check this [Tutorial](https://koojennie.notion.site/run-lostnfound)

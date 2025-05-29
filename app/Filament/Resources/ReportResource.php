@@ -22,9 +22,9 @@ class ReportResource extends Resource
 {
     protected static ?string $model = Report::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-document-magnifying-glass';
     protected static ?string $navigationLabel = 'Laporan Barang';
-    // protected static ?string $navigationGroup = 'Manajemen Lost And Found';
+    protected static ?string $modelLabel = 'Laporan';
     public static function form(Form $form): Form
     {
         return $form->schema([

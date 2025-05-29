@@ -5,6 +5,9 @@ namespace App\Filament\Widgets;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 use Filament\Widgets\StatsOverviewWidget\Card;
+use App\Models\Claim;
+use App\Models\Report;
+use App\Models\User;
 
 class StatsOverview extends BaseWidget
 {
@@ -13,15 +16,14 @@ class StatsOverview extends BaseWidget
     protected function getStats(): array
     {
         return [
-            Card::make('Unique views', '192.1k')
-                ->description('32k increase'),
-                // ->descriptionIcon('heroicon-s-trending-up'),
-            Card::make('Bounce rate', '21%')
-                ->description('7% increase'),
-                // ->descriptionIcon('heroicon-s-trending-down'),
-            Card::make('Average time on page', '3:12')
-                ->description('3% increase'),
-                // ->descriptionIcon('heroicon-s-trending-up'),
+            Card::make('Total Laporan', Report::count())
+                ->description('Semua Jumlah laporan yang masuk'),
+
+            Card::make('Total Claim', Claim::count())
+                ->description('Jumlah total yang diklaim'),
+                
+            Card::make('Total Users', User::count())
+                ->description('Jumlah  user yang terdaftar'),
         ];
     }
 }

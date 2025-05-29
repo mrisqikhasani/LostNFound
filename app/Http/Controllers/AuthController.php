@@ -55,6 +55,8 @@ class AuthController extends Controller
             'email' => 'required|string|email|max:255|unique:users,email',
             'phone_number' => 'nullable|string|max:20',
             'password' => 'required|string|min:8',
+        ], [
+            'password.min' => 'Password harus memiliki minimal 8 karakter.'
         ]);
 
         try {
