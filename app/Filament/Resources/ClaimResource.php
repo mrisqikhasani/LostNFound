@@ -12,8 +12,8 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Filament\Forms\Components\{Select, Textarea, DatePicker};
-use Filament\Tables\Columns\{TextColumn, BadgeColumn, Image};
+use Filament\Forms\Components\{Select, Textarea, DatePicker, FileUpload};
+use Filament\Tables\Columns\{TextColumn, BadgeColumn, ImageColumn};
 use Filament\Tables\Actions\{EditAction, DeleteAction};
 
 class ClaimResource extends Resource
@@ -28,34 +28,40 @@ class ClaimResource extends Resource
     {
         return $form
             ->schema([
-            Select::make('user_id')
-            ->relationship('user', 'name')
-            ->label('Pemilik (Pengklaim)')
-            ->required()
-            ->searchable(),
+                Select::make('user_id')
+                    ->relationship('user', 'name')
+                    ->label('Pemilik (Pengklaim)')
+                    ->required()
+                    ->searchable(),
 
-            Select::make('report_id')
-            ->relationship('report', 'nama_barang_temuan')
-            ->label('Barang yang Diklaim')
-            ->required()
-            ->searchable(),
+                Select::make('report_id')
+                    ->relationship('report', 'nama_barang_temuan')
+                    ->label('Barang yang Diklaim')
+                    ->required()
+                    ->searchable(),
 
-            Textarea::make('deskripsi_verifikasi')
-            ->label('Deskripsi Verifikasi')
-            ->required(),
+                Textarea::make('deskripsi_verifikasi')
+                    ->label('Deskripsi Verifikasi')
+                    ->required(),
 
-        Select::make('status_klaim')
-            ->options([
-                'diproses' => 'Diproses',
-                'disetujui' => 'Disetujui',
-                'ditolak' => 'Ditolak',
-            ])
-            ->default('diproses')
-            ->label('Status Klaim')
-            ->required(),
+                Select::make('status_klaim')
+                    ->options([
+                        'diproses' => 'Diproses',
+                        'disetujui' => 'Disetujui',
+                        'ditolak' => 'Ditolak',
+                    ])
+                    ->default('diproses')
+                    ->label('Status Klaim')
+                    ->required(),
 
-        DatePicker::make('tanggal_klaim')->label('Tanggal Klaim')->required(),
-        ]);
+                DatePicker::make('tanggal_klaim')->label('Tanggal Klaim')->required(),
+
+                FileUpload::make('foto_verifikasi')
+                    ->label('Foto Barang')
+                    ->directory('reports')
+                    ->image()
+
+            ]);
     }
 
     public static function table(Table $table): Table
@@ -66,6 +72,7 @@ class ClaimResource extends Resource
                 TextColumn::make('id')->sortable(),
                 TextColumn::make('user.name')->label('Pengklaim')->searchable(),
                 TextColumn::make('report.nama_barang_temuan')->label('Barang')->searchable(),
+                ImageColumn::make('foto_verifikasi')->label('Foto Verifikasi'),
                 TextColumn::make('deskripsi_verifikasi')->label('Verifikasi')->limit(30),
                 BadgeColumn::make('status_klaim')
                     ->colors([

@@ -70,8 +70,19 @@ class ReportResource extends Resource
                 ->label('Foto Barang')
                 ->directory('reports')
                 ->image()
+                ->multiple()
                 ->imageEditor() // Opsional: untuk crop dll
                 ->required()
+                ->preserveFilenames()
+                ->reorderable()
+                ->downloadable()
+                ->openable()
+                ->columnSpanFull()
+                ->getUploadedFileNameForStorageUsing(function ($file, $record) {
+                    // Optionally customize file naming here
+                    return $file->getClientOriginalName();
+                })
+                ->default(fn($record) => $record?->foto_url ?? [])
         ]);
     }
 
@@ -83,12 +94,15 @@ class ReportResource extends Resource
                 TextColumn::make('id')->sortable(),
                 TextColumn::make('user.name')->label('Pelapor')->searchable(),
                 TextColumn::make('nama_barang_temuan')->label('Nama Barang')->searchable(),
-                ImageColumn::make('foto_url')
+
+                ImageColumn::make('foto_url.0')
                     ->label('Foto')
-                    ->getStateUsing(function ($record) {
-                        return isset($record->foto_url[0]) ? asset('storage/' . $record->foto_url[0]) : null;
-                    }),
-                TextColumn::make('waktu_temuan')->label('Waktu Temuan')->sortable(),
+                    ->getStateUsing(fn($record) => isset($record->foto_url[0]) ? asset('storage/' . $record->foto_url[0]) : null),
+
+
+                TextColumn::make('waktu_temuan')->label('Waktu Temuan')
+                    ->date('j F Y, G:i')
+                    ->sortable(),
                 TextColumn::make('region_kampus')->label('Region Kampus')->searchable(),
                 TextColumn::make('lokasi_temuan')->label('Lokasi temuan'),
                 BadgeColumn::make('status')
@@ -116,13 +130,6 @@ class ReportResource extends Resource
                         'Cengkareng' => 'Cengkareng',
                         'Salemba' => 'Salemba',
                     ]),
-                //  TabsFilter::make()
-                //     ->tabs([
-                //         'Semua' => Tables\Filters\QueryFilter::make(),
-                //         'Disetujui' => Tables\Filters\QueryFilter::make()->query(fn ($query) => $query->where('status', 'disetujui')),
-                //         'Pending' => Tables\Filters\QueryFilter::make()->query(fn ($query) => $query->where('status', 'pending')),
-                //         'Ditolak' => Tables\Filters\QueryFilter::make()->query(fn ($query) => $query->where('status', 'ditolak')),
-                //     ]),
 
             ])
             ->actions([

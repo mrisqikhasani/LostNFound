@@ -64,7 +64,6 @@ class ClaimController extends Controller
             $validated = $request->validate([
             'report_id' => 'required|exists:reports,id',
             'deskripsi_verifikasi' => 'required|string',
-            'foto_verifikasi' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
             ]);
             
             // Handle the uploaded image

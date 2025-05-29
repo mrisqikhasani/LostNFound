@@ -29,8 +29,7 @@ class ReportController extends Controller
             }, explode(',', $categoryMatches[1]));
         }
 
-
-        $query = Report::query();
+        $query = Report::where('status', 'disetujui');
 
         // Cek sort param
         if ($request->has('sort')) {
@@ -51,13 +50,9 @@ class ReportController extends Controller
             }
         } else {
             $query->oldest();
-
         }
 
         $reports = $query->paginate();
-
-        // $reports = Report::where('status', 'disetujui')->get();
-        // $reports = Report::get();
 
         $title = 'Beranda';
 
