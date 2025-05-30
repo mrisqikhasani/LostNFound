@@ -15,6 +15,19 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\{Select, Textarea, DatePicker, FileUpload};
 use Filament\Tables\Columns\{TextColumn, BadgeColumn, ImageColumn};
 use Filament\Tables\Actions\{EditAction, DeleteAction};
+use Filament\Support\Colors\Color;
+use Filament\Support\Facades\FilamentColor;
+
+FilamentColor::register([
+    'danger' => Color::Red,
+    'gray' => Color::Zinc,
+    'info' => Color::Blue,
+    'primary' => Color::Amber,
+    'success' => Color::Green,
+    'warning' => Color::Amber,
+    'purple' => Color::Purple,
+    'yellow' => Color::Yellow,
+]);
 
 class ClaimResource extends Resource
 {
@@ -74,11 +87,13 @@ class ClaimResource extends Resource
                 TextColumn::make('report.nama_barang_temuan')->label('Barang')->searchable(),
                 ImageColumn::make('foto_verifikasi')->label('Foto Verifikasi'),
                 TextColumn::make('deskripsi_verifikasi')->label('Verifikasi')->limit(30),
-                BadgeColumn::make('status_klaim')
+                TextColumn::make('status_klaim')
+                    ->label('Status Klaim')
+                    ->badge()
                     ->colors([
-                        'primary' => 'diproses',
-                        'success' => 'disetujui',
-                        'danger' => 'ditolak',
+                        'yellow' => 'Diproses',
+                        'success' => 'Disetujui',
+                        'danger' => 'Ditolak',
                     ]),
                 TextColumn::make('tanggal_klaim')->date('d M Y')->label('Tanggal'),
             ])

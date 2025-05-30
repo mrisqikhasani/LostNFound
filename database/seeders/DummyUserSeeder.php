@@ -24,15 +24,6 @@ class DummyUserSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'name' => 'Seder',
-                'email' => 'seder@gmail.com',
-                'password' => Hash::make('#Seder123'),
-                'phone_number' => '081298765432',
-                'role' => 'user',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
                 'name' => 'Farhan',
                 'email' => 'farhan@gmail.com',
                 'password' => Hash::make('farhan@123'),

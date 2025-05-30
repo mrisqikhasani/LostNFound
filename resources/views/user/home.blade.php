@@ -186,9 +186,11 @@
                 class="w-full md:w-4/5 grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-6 place-content-center p-4">
             </div>
 
-            <div>
-
-
+            <div id="not-found" class="flex flex-col items-center justify-center min-h-[50vh] py-8">
+                <a href="/" class="w-80 sm:w-96">
+                    <img src="{{ asset('storage/not-found-report.svg') }}" alt="logo" class="w-96" />
+                </a>
+                <p class="mt-4 text-gray-500 text-center">Tidak ada barang yang ditemukan.</p>
             </div>
         </main>
 
@@ -228,11 +230,29 @@
 
         // Loop over the products and create the product elements
 
+        productsWrapper.innerHTML = '';
+        productElements.length = 0;
+
+        let hasValidProduct = false;
+
         reports.forEach((product) => {
+            if (!product.url || !product.name) return;
+
             const productElement = createProductElement(product);
             productElements.push(productElement);
             productsWrapper.appendChild(productElement);
+            hasValidProduct = true;
         });
+
+        const notFound = document.getElementById('not-found');
+
+        if (!hasValidProduct) {
+            productsWrapper.classList.add('hidden');
+            notFound.classList.remove('hidden');
+        } else {
+            productsWrapper.classList.remove('hidden');
+            notFound.classList.add('hidden');
+        }
 
         // Add filter event listeners
         filtersCategory.addEventListener('change', filterProducts);
@@ -328,6 +348,16 @@
                     productElement.classList.add('hidden');
                 }
             });
+        }
+
+        const anyVisible = productElements.some(el => !el.classList.contains('hidden'));
+
+        if (!anyVisible) {
+            productsWrapper.classList.add('hidden');
+            notFound.classList.remove('hidden');
+        } else {
+            productsWrapper.classList.remove('hidden');
+            notFound.classList.add('hidden');
         }
 
         document.querySelectorAll('input[name="sort"]').forEach((radio) => {
