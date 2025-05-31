@@ -17,6 +17,19 @@ use Filament\Tables\Filters\TabsFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Infolists\Components\Tabs;
+use Filament\Support\Colors\Color;
+use Filament\Support\Facades\FilamentColor;
+
+FilamentColor::register([
+    'danger' => Color::Red,
+    'gray' => Color::Zinc,
+    'info' => Color::Blue,
+    'primary' => Color::Amber,
+    'success' => Color::Green,
+    'warning' => Color::Amber,
+    'purple' => Color::Purple,
+    'yellow' => Color::Yellow,
+]);
 
 class ReportResource extends Resource
 {
@@ -109,12 +122,14 @@ class ReportResource extends Resource
                     ->sortable(),
                 TextColumn::make('region_kampus')->label('Region Kampus')->searchable(),
                 TextColumn::make('lokasi_temuan')->label('Lokasi temuan'),
-                BadgeColumn::make('status')
+                TextColumn::make('status')
+                    ->label('Status Lapor')
+                    ->badge()
                     ->colors([
-                        'primary' => 'menunggu',
-                        'success' => 'disetujui',
-                        'danger' => 'ditolak',
-                        'warning' => 'diklaim',
+                        'yellow' => 'Menunggu',
+                        'success' => 'Diklaim',
+                        'danger' => 'Ditolak',
+                        'purple' => 'Disetujui',
                     ]),
 
             ])

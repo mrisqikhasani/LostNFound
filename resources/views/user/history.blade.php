@@ -119,7 +119,7 @@
                     @if (is_countable($claimsUser) && count($claimsUser) == 0)
                         <div class="flex flex-col items-center justify-center min-h-[50vh] py-8">
                             <a href="/" class="w-80 sm:w-96">
-                                <img src="{{ asset('storage/not-found.svg') }}" alt="logo" class="w-full" />
+                                <img src="{{ asset('storage/not-found-history.svg') }}" alt="logo" class="w-full" />
                             </a>
                             <p class="mt-4 text-gray-500 text-center">Data masih kosong.</p>
                         </div>
@@ -153,21 +153,30 @@
                                                 {{ $claimUser->tanggal_klaim }}</dd>
                                         </dl>
 
+                                        @php
+                                            $status = $claimUser->status_klaim;
+                                            $classMap = [
+                                                'Diproses' => 'bg-yellow-100 text-yellow-800',
+                                                'Disetujui' => 'bg-green-100 text-green-800',
+                                                'Ditolak' => 'bg-red-100 text-red-800',
+                                            ];
+                                            $iconMap = [
+                                                'Diproses' => 'fa-regular fa-clock',
+                                                'Disetujui' => 'fa-solid fa-check',
+                                                'Ditolak' => 'fa-solid fa-xmark',
+                                            ];
+                                            $statusClass = $classMap[$status] ?? 'bg-gray-100 text-gray-800';
+                                            $iconClass = $iconMap[$status] ?? 'fa-solid fa-question';
+                                        @endphp
+
                                         <dl class="w-1/2 sm:w-1/4 lg:w-auto lg:flex-1">
                                             <dt class="text-base font-medium text-gray-500">Status:</dt>
-                                            <dd class="me-2 mt-1.5 inline-flex items-center rounded px-2.5 py-0.5 text-base font-medium
-                                            @if ($claimUser->status_klaim == 'diproses') bg-yellow-100 text-yellow-800" @elseif($claimUser->status_klaim == 'disetujui') bg-green-100 text-green-800"
-                                            @elseif($claimUser->status_klaim == 'ditolak') bg-red-100 text-red-800" @else bg-gray-100 text-gray-800" @endif <svg class="me-1
-                                                h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                                width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                                    stroke-width="2"
-                                                    d="M18.5 4h-13m13 16h-13M8 20v-3.333a2 2 0 0 1 .4-1.2L10 12.6a1 1 0 0 0 0-1.2L8.4 8.533a2 2 0 0 1-.4-1.2V4h8v3.333a2 2 0 0 1-.4 1.2L13.957 11.4a1 1 0 0 0 0 1.2l1.643 2.867a2 2 0 0 1 .4 1.2V20H8Z" />
-                                                </svg>
-                                                {{ $claimUser->status_klaim }}
+                                            <dd class="me-2 mt-1.5 inline-flex items-center rounded px-2.5 py-0.5 text-base font-medium {{ $statusClass }}">
+                                                <i class="{{ $iconClass }} me-1 h-4 w-4"></i>
+                                                {{ ucfirst($status) }}
                                             </dd>
                                         </dl>
-                                        <dl>
+
                                             <button class="open-modal-btn bg-primary px-4 py-2 rounded-lg bg-primary text-white text-sm font-semibold hover:bg-secondary transition-all duration-300 ease-in"
                                                 data-claimId="{{ $claimUser->id }}"
                                                 data-namabarangtemuan="{{ $claimUser->report->nama_barang_temuan }}"
@@ -187,7 +196,7 @@
                     @if (is_countable($reportsUser) && count($reportsUser) == 0)
                         <div class="flex flex-col items-center justify-center min-h-[50vh] py-8">
                             <a href="/" class="w-80 sm:w-96">
-                                <img src="{{ asset('storage/not-found.svg') }}" alt="logo" class="w-full" />
+                                <img src="{{ asset('storage/not-found-history.svg') }}" alt="logo" class="w-full" />
                             </a>
                             <p class="mt-4 text-gray-500 text-center">Data masih kosong.</p>
                         </div>
@@ -227,28 +236,32 @@
                                                 {{ $reportUser->lokasi_temuan }} </dd>
                                         </dl>
 
+                                        @php
+                                            $status = $reportUser->status;
+                                            $classMap = [
+                                                'Menunggu' => 'bg-yellow-100 text-yellow-800',
+                                                'Diklaim' => 'bg-green-100 text-green-800',
+                                                'Disetujui' => 'bg-purple-100 text-purple-800',
+                                                'Ditolak' => 'bg-red-100 text-red-800',
+                                            ];
+                                            $iconMap = [
+                                                'Menunggu' => 'fa-regular fa-clock',
+                                                'Diklaim' => 'fa-solid fa-check',
+                                                'Disetujui' => 'fa-solid fa-upload',
+                                                'Ditolak' => 'fa-solid fa-xmark',
+                                            ];
+                                            $statusClass = $classMap[$status] ?? 'bg-gray-100 text-gray-800';
+                                            $iconClass = $iconMap[$status] ?? 'fa-solid fa-question';
+                                        @endphp
+
                                         <dl class="w-1/2 sm:w-1/4 lg:w-auto lg:flex-1">
                                             <dt class="text-base font-medium text-gray-500">Status:</dt>
-                                            <dd class="me-2 mt-1.5 inline-flex items-center rounded px-2.5 py-0.5 text-base font-medium
-                                            @if ($reportUser->status == 'menunggu') bg-yellow-100 text-yellow-800"
-                                            @elseif ($reportUser->status == 'disetujui')
-                                                bg-green-100 text-green-800"
-                                            @elseif ($reportUser->status == 'ditolak')
-                                                bg-red-100 text-red-800"
-                                            @elseif ($reportUser->status == 'diklaim')
-                                                bg-blue-100 text-blue-800"
-                                            @else
-                                                bg-gray-100 text-gray-800" @endif
-                                            <svg class="me-1
-                                                h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                                width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                                <path stroke="currentColor" stroke-linecap="round"
-                                                    stroke-linejoin="round" stroke-width="2"
-                                                    d="M18.5 4h-13m13 16h-13M8 20v-3.333a2 2 0 0 1 .4-1.2L10 12.6a1 1 0 0 0 0-1.2L8.4 8.533a2 2 0 0 1-.4-1.2V4h8v3.333a2 2 0 0 1-.4 1.2L13.957 11.4a1 1 0 0 0 0 1.2l1.643 2.867a2 2 0 0 1 .4 1.2V20H8Z" />
-                                                </svg>
-                                                {{ $reportUser->status }}
+                                            <dd class="me-2 mt-1.5 inline-flex items-center rounded px-2.5 py-0.5 text-base font-medium {{ $statusClass }}">
+                                                <i class="{{ $iconClass }} me-1 h-4 w-4"></i>
+                                                {{ ucfirst($status) }}
                                             </dd>
                                         </dl>
+
                                         <dl>
                                             <button class="open-modal-btn bg-primary px-4 py-2 rounded-lg bg-primary text-white text-sm font-semibold hover:bg-secondary transition-all duration-300 ease-in"
                                                 data-reportId="{{ $reportUser->id }}"
@@ -270,7 +283,7 @@
                 @else
                     <div class="flex flex-col items-center justify-center min-h-[50vh] py-8">
                         <a href="/" class="w-80 sm:w-96">
-                            <img src="{{ asset('storage/not-found.svg') }}" alt="logo" class="w-full" />
+                            <img src="{{ asset('storage/not-found-history.svg') }}" alt="logo" class="w-full" />
                         </a>
                         <p class="mt-4 text-gray-500 text-center">Silakan pilih salah satu tab.</p>
                     </div>
