@@ -56,7 +56,7 @@ class HistoryController extends Controller
                 }
             }
 
-            $reportsUser = $query->latest()->paginate();
+            $reportsUser = $query->with('user')->latest()->paginate();
 
             if($reportsUser->isEmpty()){
                 $error = 'Not data report found';
@@ -80,7 +80,7 @@ class HistoryController extends Controller
     {
         try {
             $userId = auth()->id();
-                $query = Claim::with('report')->where('user_id', $userId);
+                $query = Claim::with('report.user')->where('user_id', $userId);
             // $query = Claim::with('report');
 
             if ($request->filled('status')) {

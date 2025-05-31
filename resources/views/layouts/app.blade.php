@@ -46,7 +46,7 @@
                         <div
                             class="absolute top-full right-0 mt-2 w-40 bg-white rounded-lg shadow-2xl origin-top scale-y-0 group-hover:scale-y-100 transition-transform duration-200">
                         <a href="{{ route('history') }}"
-                                class="block px-4 py-2 text-hitam hover:bg-gray-100 font-medium">Riwayat Klaim</a>
+                                class="block px-4 py-2 text-hitam hover:bg-gray-100 font-medium">Riwayat</a>
                             <form action="{{ route('auth.logout') }}" method="post"
                                 class="block px-4 py-2 text-hitam hover:bg-gray-100 font-medium">
                                 @csrf

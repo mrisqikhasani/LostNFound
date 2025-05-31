@@ -15,6 +15,7 @@ class Claim extends Model
         'foto_verifikasi',
         'status_klaim',
         'tanggal_klaim',
+        'approve_reject_reason',
     ];
 
     public function user():BelongsTo

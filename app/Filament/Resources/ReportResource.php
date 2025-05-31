@@ -66,6 +66,10 @@ class ReportResource extends Resource
                 ->label('Status')
                 ->required(),
 
+            Textarea::make('approve_reject_reason')
+                ->label('Alasan Disetujui / Ditolak')
+                ->required(fn ($get) => in_array($get('status'), ['Disetujui', 'Ditolak'])),
+
             FileUpload::make('foto_url')
                 ->label('Foto Barang')
                 ->directory('reports')

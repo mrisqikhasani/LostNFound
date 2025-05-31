@@ -175,6 +175,9 @@
                                                 data-statusKlaim="{{ $claimUser->status_klaim }}"
                                                 data-tanggalKlaim="{{ $claimUser->tanggal_klaim }}"
                                                 data-fotoVerifikasi="{{ $claimUser->foto_verifikasi }}"
+                                                data-userReportFoundname = "{{ $claimUser->report->user->name }}"
+                                                data-userReportFoundPhoneNumber = "{{ $claimUser->report->user->phone_number }}"
+                                                data-reasonApproveRejectClaim= "{{ $claimUser->approve_reject_reason }}"
                                                 onclick="openModalDetailClaim(this)">Detail</button>
                                         </dl>
                                     </div>
@@ -215,7 +218,7 @@
                                         <dl class="w-1/2 sm:w-1/4 lg:w-auto lg:flex-1">
                                             <dt class="text-base font-medium text-gray-500">Waktu Temuan:</dt>
                                             <dd class="mt-1.5 text-base font-semibold text-gray-90">
-                                                {{ $reportUser->waktu_temuan }} WIB</dd>
+                                                {{ \Carbon\Carbon::parse($reportUser->waktu_temuan)->format('j F Y, G:i') }}</dd>
                                         </dl>
 
                                         <dl class="w-1/2 sm:w-1/4 lg:w-auto lg:flex-1">
@@ -258,6 +261,7 @@
                                                 data-deskripsiKhusus="{{ $reportUser->deskripsi_khusus }}"
                                                 data-status="{{ $reportUser->status }}"
                                                 data-fotoReport = "{{ json_encode($reportUser->foto_url) }}"
+                                                data-reasonapproveorrejectreport= "{{ $reportUser->approve_reject_reason }}"
                                                 onclick="openModalDetailReport(this)">Detail</button>
                                         </dl>
                                     </div>
@@ -275,45 +279,7 @@
             </div>
         </div>
 
-
-        <!-- <nav class="mt-6 flex items-center justify-center sm:mt-8" aria-label="Page navigation example">
-                              <ul class="flex h-8 items-center -space-x-px text-sm">
-                              <li>
-                              <a href="#" class="ms-0 flex h-8 items-center justify-center rounded-s-lg border border-e-0 border-gray-300 bg-white px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700">
-                              <span class="sr-only">Previous</span>
-                              <svg class="h-4 w-4 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 19-7-7 7-7" />
-                              </svg>
-                              </a>
-                              </li>
-                              <li>
-                              <a href="#" class="flex h-8 items-center justify-center border border-gray-300 bg-white px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700">1</a>
-                              </li>
-                              <li>
-                              <a href="#" class="flex h-8 items-center justify-center border border-gray-300 bg-white px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700">2</a>
-                              </li>
-                              <li>
-                              <a href="#" aria-current="page" class="z-10 flex h-8 items-center justify-center border border-primary-300 bg-primary-50 px-3 leading-tight text-primary-600 hover:bg-primary-100 hover:text-primary-700">3</a>
-                              </li>
-                              <li>
-                              <a href="#" class="flex h-8 items-center justify-center border border-gray-300 bg-white px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700">...</a>
-                              </li>
-                              <li>
-                              <a href="#" class="flex h-8 items-center justify-center border border-gray-300 bg-white px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700">100</a>
-                              </li>
-                              <li>
-                              <a href="#" class="flex h-8 items-center justify-center rounded-e-lg border border-gray-300 bg-white px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700">
-                              <span class="sr-only">Next</span>
-                              <svg class="h-4 w-4 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7" />
-                              </svg>
-                              </a>
-                              </li>
-                              </ul>
-                              </nav> -->
-
         <!-- Modal Report-->
-        <!-- <div id="modalDetails" class="fixed hidden z-50 inset-0 bg-gray-900 bg-opacity-60 overflow-y-auto h-full w-full px-4"> -->
         <div id="modalDetailsReport"
             class="fixed hidden z-50 inset-0 bg-black bg-opacity-50 overflow-y-auto h-full w-full px-4 py-10">
             <div class="relative mx-auto max-w-2xl bg-white rounded-2xl shadow-lg">
@@ -397,6 +363,11 @@
                                 rows="3" required></textarea>
                         </div>
 
+                        <div id="reasonApproveOrRejectReportModal" class="md:col-span-2 hidden" >
+                            <label class="block font-medium">Alasan Approval / Penolakan</label>
+                            <textarea id="approvalReasonReportModalText" readonly rows="3"
+                                class="w-full bg-gray-100 px-4 py-2 rounded-md border border-gray-300 text-gray-800 resize-none"></textarea>
+                        </div>
 
                     </div>
                 </form>
@@ -455,19 +426,35 @@
                         </div>
 
 
-                        <div class="grid grid-cols-1">
+                        <div class="md:col-span-2">
                             <label for="deskripsiVerifikasiModal" class="block font-medium">Deskripsi Umum</label>
                             <textarea id="deskripsiVerifikasiModal" name="deskripsiVerifikasiModal"
                                 class="w-full bg-gray-100 px-4 py-2 rounded-md border border-gray-200 focus:outline-none text-gray-800 resize-none"
                                 rows="3" required></textarea>
                         </div>
+                        
+                        <div id="reasonApproveOrRejectClaims" class="md:col-span-2 hidden">
+                            <label class="block font-medium">Alasan Approval / Penolakan</label>
+                            <textarea id="approvalReasonClaimModalText" readonly rows="3"
+                                class="w-full bg-gray-100 px-4 py-2 rounded-md border border-gray-300 text-gray-800 resize-none"></textarea>
+                        </div>
 
-                        <!-- <div class="grid-col-1">
-                                                <label for="deskripsiKhususBarang" class="block font-medium">Deskripsi Khusus</label>
-                                                <textarea id="deskripsiKhususBarang" name="deskripsiKhususBarang"
-                                                    class="w-full bg-gray-100 px-4 py-2 rounded-md border border-gray-200 focus:outline-none text-gray-800 resize-none"
-                                                    rows="3" required></textarea>
-                                            </div> -->
+                        <div id="sectionApprovedContactReport" class="mt-1 hidden">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-4 pb-2">Informasi Pelapor</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-gray-700">
+                                <div>
+                                    <label class="block font-medium">Nama Pelapor</label>
+                                    <input type="text" id="reportUserName" readonly
+                                        class="w-full bg-gray-100 px-4 py-2 rounded-md border border-gray-300 text-gray-800" />
+                                </div>
+                                <div>
+                                    <label class="block font-medium">Number Phone</label>
+                                    <input type="text" id="reportUserPhoneNumber" readonly
+                                        class="w-full bg-gray-100 px-4 py-2 rounded-md border border-gray-300 text-gray-800" />
+                                </div>
+
+                            </div>
+                        </div>
 
 
                     </div>
@@ -521,17 +508,34 @@
             const deksripsiKhusus = button.getAttribute('data-deskripsiKhusus');
             const status = button.getAttribute('data-status');
             const fotoUrl = button.getAttribute('data-fotoReport');
+            const reasonApproveOrRejectReport = button.getAttribute('data-reasonapproveorrejectreport')
 
 
             // document.getElementById('reportId').value = id;
             document.getElementById('namaBarangTemuanModal').value = namaBarangTemuan;
-            document.getElementById('waktuTemuanModal').value = waktuTemuan;
+            // Format waktuTemuan to "j F Y, G:i"
+            if (waktuTemuan) {
+                const date = new Date(waktuTemuan);
+                const options = { day: 'numeric', month: 'long', year: 'numeric' };
+                const dateStr = date.toLocaleDateString('id-ID', options);
+                const timeStr = date.getHours() + ':' + String(date.getMinutes()).padStart(2, '0');
+                document.getElementById('waktuTemuanModal').value = `${dateStr}, ${timeStr} WIB`;
+            } else {
+                document.getElementById('waktuTemuanModal').value = '';
+            }
             document.getElementById('kategoriModal').value = kategori;
             document.getElementById('lokasiTemuanModal').value = lokasiTemuan;
             document.getElementById('regionKampusModal').value = regionKampus;
             document.getElementById('deskripsiUmumModal').value = deksripsiUmum;
             document.getElementById('deskripsiKhususBarang').value = deksripsiKhusus;
             document.getElementById('statusReportModal').value = status;
+            document.getElementById('approvalReasonReportModalText').value = reasonApproveOrRejectReport;
+
+            const reasonApproveOrRejectReportModal = document.getElementById('reasonApproveOrRejectReportModal');
+
+            if( status === 'Disetujui' || status === 'Ditolak' ){
+                reasonApproveOrRejectReportModal.classList.remove('hidden');
+            } 
 
 
             const imageData = fotoUrl;
@@ -550,12 +554,31 @@
             const statusKlaim = button.getAttribute('data-statusKlaim');
             const tanggalKlaim = button.getAttribute('data-tanggalKlaim');
             const fotoVerifikasi = button.getAttribute('data-fotoVerifikasi');
-
+            const dataUserReportFoundName = button.getAttribute('data-userReportFoundname');
+            const dataUserReportFoundPhoneNumber = button.getAttribute('data-userReportFoundPhoneNumber');
+            const dataReasonApproveRejectClaim = button.getAttribute('data-reasonApproveRejectClaim');
 
             document.getElementById('namaBarangTemuanClaimModal').value = namaBarangTemuan;
             document.getElementById('tanggalKlaimModal').value = tanggalKlaim;
             document.getElementById('statusKlaimModal').value = statusKlaim;
             document.getElementById('deskripsiVerifikasiModal').value = deskripsiVerifikasi;
+            document.getElementById('reportUserName').value = dataUserReportFoundName;
+            document.getElementById('reportUserPhoneNumber').value = dataUserReportFoundPhoneNumber;
+            document.getElementById('approvalReasonClaimModalText').value = dataReasonApproveRejectClaim;
+
+
+            const reasonApproveOrRejectClaims = document.getElementById('reasonApproveOrRejectClaims');
+            const sectionApprovedContactReport = document.getElementById('sectionApprovedContactReport');
+
+            console.log(reasonApproveOrRejectClaims);
+
+            if(statusKlaim === 'Disetujui' || statusKlaim === 'Ditolak'){
+                reasonApproveOrRejectClaims.classList.remove('hidden');
+            }
+
+            if(statusKlaim === 'Disetujui'){
+                sectionApprovedContactReport.classList.remove('hidden');
+            }
 
             const imagesData = [];
             imagesData.push(fotoVerifikasi);

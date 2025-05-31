@@ -19,6 +19,7 @@ class Report extends Model
         'deskripsi_khusus',
         'status',
         'foto_url',
+        'approve_reject_reason',
     ];
 
     protected $casts = [
