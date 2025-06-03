@@ -90,7 +90,6 @@ class ClaimResource extends Resource
                 TextColumn::make('id')->sortable(),
                 TextColumn::make('user.name')->label('Pengklaim')->searchable(),
                 TextColumn::make('report.nama_barang_temuan')->label('Barang')->searchable(),
-                ImageColumn::make('foto_verifikasi')->label('Foto Verifikasi'),
                 TextColumn::make('deskripsi_verifikasi')->label('Verifikasi')->limit(30),
                 TextColumn::make('status_klaim')
                     ->label('Status Klaim')

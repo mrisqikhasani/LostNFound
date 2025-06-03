@@ -135,8 +135,7 @@
                                                     <img src="{{ asset('storage/' . $claimUser->foto_verifikasi) }}"
                                                         class="w-16 rounded-md" />
                                                 @else
-                                                    <img src="{{ asset('storage/botol-minum-1.jpeg') }}" class="w-16"
-                                                        alt="No Image" />
+                                                    <p class="mt-1.5 text-base font-semibold text-gray-900">Tidak ada foto bukti kepemilikan</p>
                                                 @endif
                                             </dd>
                                         </dl>
@@ -356,7 +355,7 @@
                         </div>
 
                         <div>
-                            <label for="statusReportModal" class="block font-medium">Status Report</label>
+                            <label for="statusReportModal" class="block font-medium">Status Lapor</label>
                             <input type="text" id="statusReportModal" name="statusReportModal"
                                 class="w-full bg-gray-100 px-4 py-2 rounded-md border border-gray-200 focus:outline-none text-gray-800" />
                         </div>
@@ -377,7 +376,7 @@
                         </div>
 
                         <div id="reasonApproveOrRejectReportModal" class="md:col-span-2 hidden" >
-                            <label class="block font-medium">Alasan Approval / Penolakan</label>
+                            <label class="block font-medium">Alasan Disetujui / Ditolak</label>
                             <textarea id="approvalReasonReportModalText" readonly rows="3"
                                 class="w-full bg-gray-100 px-4 py-2 rounded-md border border-gray-300 text-gray-800 resize-none"></textarea>
                         </div>
@@ -408,7 +407,7 @@
                     class="px-6 pb-8">
                     @csrf
 
-                    <h2 class="text-2xl font-bold text-center text-primary mb-6">Detail Claim</h2>
+                    <h2 class="text-2xl font-bold text-center text-primary mb-6">Detail Klaim Barang</h2>
 
                     <div class="mb-6">
                         <h3 class="font-semibold mb-2 text-gray-700">Bukti Kepemilikan</h3>
@@ -461,7 +460,7 @@
                                         class="w-full bg-gray-100 px-4 py-2 rounded-md border border-gray-300 text-gray-800" />
                                 </div>
                                 <div>
-                                    <label class="block font-medium">Number Phone</label>
+                                    <label class="block font-medium">No Telepon Pelapor</label>
                                     <input type="text" id="reportUserPhoneNumber" readonly
                                         class="w-full bg-gray-100 px-4 py-2 rounded-md border border-gray-300 text-gray-800" />
                                 </div>
@@ -616,7 +615,18 @@
         function showImagesClaim(imageUrls) {
             const container = document.getElementById("fotoClaimsModal");
             container.innerHTML = ""; // Kosongkan dulu
-            imageUrls.forEach(url => {
+
+            const validUrls = imageUrls.filter(url => url);
+
+             if (validUrls.length === 0) {
+                const message = document.createElement("p");
+                message.className = "mt-1.5 text-base font-semibold text-gray-900";
+                message.textContent = "Tidak ada foto bukti kepemilikan";
+                container.appendChild(message);
+                return;
+            }
+
+            validUrls.forEach(url => {
                 const img = document.createElement("img");
                 img.src = `storage/${url}`;
                 img.alt = "Foto verifikasi";

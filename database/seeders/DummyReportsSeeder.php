@@ -27,7 +27,7 @@ class DummyReportsSeeder extends Seeder
             'region_kampus' => 'Depok',
             'deskripsi_umum' => 'TWS warna hitam yang ditemukan di meja ruangan.',
             'deskripsi_khusus' => 'Ada titik putih yang menempel di dalam TWS',
-            'status' => 'menunggu',
+            'status' => 'Menunggu',
             'foto_url' => json_encode(['tws-1.jpeg', 'tws-2.jpeg', 'tws-3.jpeg']),
             'created_at' => $now,
             'updated_at' => $now,
