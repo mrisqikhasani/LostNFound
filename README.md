@@ -3,6 +3,7 @@
 # 🔍 LostNFound
 
 <img src="https://raw.githubusercontent.com/mrisqikhasani/LostNFound/refs/heads/main/storage/app/public/lostnfound.png" alt="LostNFound Web App"/>
+
 **LostNFound** is a Laravel-based web application designed to help **Gunadarma University** students report and find lost or found items around the campus. This platform serves as a bridge between item finders and rightful owners, with the help of an admin as a mediator.
 
 ---
